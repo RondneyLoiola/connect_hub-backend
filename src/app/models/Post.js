@@ -36,7 +36,7 @@ const postSchema = new Schema({
 
 // Virtual URL
 postSchema.virtual('url').get(function() {
-  return `http://localhost:3333/post-image/${this.path}`;
+  return `http://${process.env.NODE_ENV === 'development' ? 'localhost:3333' : process.env.HOST}/${this.path}`;
 });
 
 postSchema.set('toJSON', { virtuals: true });
