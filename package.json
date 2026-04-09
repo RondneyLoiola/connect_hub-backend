@@ -4,7 +4,10 @@
   "main": "server.js",
   "scripts": {
     "dev": "node --watch src/server.js",
-    "start": "node src/server.js"
+    "start": "node src/server.js",
+    "build": "biome check --write ./src",
+    "lint": "biome lint ./src",
+    "format": "biome format --write ./src"
   },
   "keywords": [],
   "author": "Rondney Oliveira Loiola",
