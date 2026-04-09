@@ -36,7 +36,10 @@ const postSchema = new Schema({
 
 // Virtual URL
 postSchema.virtual('url').get(function() {
-  return `${process.env.NODE_ENV === 'development' ? 'http://localhost:3333' : process.env.HOST}/${this.path}`;
+  const baseURL = process.env.NODE_ENV === 'development' 
+    ? 'http://localhost:3333' 
+    : (process.env.HOST || process.env.VERCEL_URL || 'https://connect-hub-app.vercel.app/');
+  return `${baseURL}/post-image/${this.path}`;
 });
 
 postSchema.set('toJSON', { virtuals: true });
