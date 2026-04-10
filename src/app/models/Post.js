@@ -21,6 +21,8 @@ const postSchema = new Schema({
   path: {
     type: String,
     trim: true
+    // Agora este campo vai armazenar a URL completa do Cloudinary
+    // Exemplo: https://res.cloudinary.com/seu_cloud/image/upload/v123/connect_hub/foto.jpg
   },
   likes_count: {
     type: Number,
@@ -34,16 +36,8 @@ const postSchema = new Schema({
   timestamps: true
 });
 
-// Virtual URL
-postSchema.virtual('url').get(function() {
-  const baseURL = process.env.NODE_ENV === 'development' 
-    ? 'http://localhost:3333' 
-    : (process.env.HOST || process.env.VERCEL_URL || 'https://connect-hub-app.vercel.app/');
-  return `${baseURL}/post-image/${this.path}`;
-});
-
-postSchema.set('toJSON', { virtuals: true });
-postSchema.set('toObject', { virtuals: true });
+// ✅ REMOVIDO O VIRTUAL - não é mais necessário
+// O campo 'path' já é a URL completa
 
 // Static method to populate relations
 postSchema.statics.populateRelations = function(query) {

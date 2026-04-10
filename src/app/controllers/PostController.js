@@ -21,10 +21,10 @@ class PostController {
     }
 
     const { description } = req.body;
-    const { filename } = req.file;
+    const { path } = req.file; // ✅ MUDOU AQUI
     const user_id = req.userId;
 
-    const post = await new Post({ user_id, description, path: filename }).save();
+    const post = await new Post({ user_id, description, path }).save(); // ✅ path já é a URL completa
 
     return res.status(201).json({
       mensagem: 'Post criado com sucesso!',
@@ -60,7 +60,7 @@ class PostController {
     }
 
     if (req.file) {
-      post.path = req.file.filename;
+      post.path = req.file.path; // ✅ MUDOU AQUI
     }
     if (description !== undefined) {
       post.description = description;
